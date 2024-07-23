@@ -1,113 +1,173 @@
-import Image from "next/image";
+/**
+ * v0 by Vercel.
+ * @see https://v0.dev/t/E1UAHTek8A7
+ * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
+ */
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
+import { Button } from "@/components/ui/button";
+import { Label } from "@/components/ui/label";
+import {
+  Select,
+  SelectTrigger,
+  SelectValue,
+  SelectContent,
+  SelectItem,
+} from "@/components/ui/select";
+import { Textarea } from "@/components/ui/textarea";
 
-export default function Home() {
+export default function Component() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:size-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <div className="w-full max-w-6xl mx-auto py-12 px-4 md:px-6">
+      <div className="flex flex-col md:flex-row items-center gap-8 mb-12">
+        <img
+          src="/placeholder.svg"
+          alt="Game Cover"
+          width={600}
+          height={400}
+          className="rounded-lg w-full md:w-[600px] h-auto"
+        />
+        <div className="grid gap-4">
+          <h1 className="text-4xl font-bold">Legendary Adventure</h1>
+          <div className="flex items-center gap-2">
+            <div className="flex items-center gap-0.5"></div>
+            <span className="text-muted-foreground">4.2 (1,234 reviews)</span>
+          </div>
+          <p className="text-muted-foreground">
+            Embark on an epic journey through a vast and immersive world.
+            Explore stunning landscapes, battle fierce enemies, and uncover the
+            secrets of an ancient civilization.
+          </p>
         </div>
       </div>
-
-      <div className="relative z-[-1] flex place-items-center before:absolute before:h-[300px] before:w-full before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-full after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 sm:before:w-[480px] sm:after:w-[240px] before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
+      <div className="grid gap-8">
+        <div className="grid gap-4">
+          <h2 className="text-2xl font-bold">Reviews</h2>
+          <div className="grid gap-6">
+            <div className="grid gap-4 p-4 rounded-lg bg-muted">
+              <div className="flex items-center gap-4">
+                <Avatar className="w-10 h-10 border">
+                  <AvatarImage src="/placeholder-user.jpg" />
+                  <AvatarFallback>JD</AvatarFallback>
+                </Avatar>
+                <div className="grid gap-1">
+                  <div className="flex items-center gap-2">
+                    <div className="font-medium">John Doe</div>
+                    <div className="flex items-center gap-0.5"></div>
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    2 days ago
+                  </div>
+                </div>
+              </div>
+              <div className="text-muted-foreground">
+                This game is an absolute masterpiece! The visuals are stunning,
+                the gameplay is smooth and engaging, and the story is truly
+                captivating. I highly recommend it to anyone who loves adventure
+                games.
+              </div>
+              <div className="flex items-center gap-2">
+                <Button variant="ghost" size="icon">
+                  <span className="sr-only">Like</span>
+                </Button>
+                <Button variant="ghost" size="icon">
+                  <span className="sr-only">Dislike</span>
+                </Button>
+              </div>
+            </div>
+            <div className="grid gap-4 p-4 rounded-lg bg-muted">
+              <div className="flex items-center gap-4">
+                <Avatar className="w-10 h-10 border">
+                  <AvatarImage src="/placeholder-user.jpg" />
+                  <AvatarFallback>SA</AvatarFallback>
+                </Avatar>
+                <div className="grid gap-1">
+                  <div className="flex items-center gap-2">
+                    <div className="font-medium">Sarah Anderson</div>
+                    <div className="flex items-center gap-0.5"></div>
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    1 week ago
+                  </div>
+                </div>
+              </div>
+              <div className="text-muted-foreground">
+                I absolutely loved this game! The story was engaging, the
+                characters were well-developed, and the gameplay was incredibly
+                fun and challenging. I couldn't put it down and can't wait to
+                play it again.
+              </div>
+              <div className="flex items-center gap-2">
+                <Button variant="ghost" size="icon">
+                  <span className="sr-only">Like</span>
+                </Button>
+                <Button variant="ghost" size="icon">
+                  <span className="sr-only">Dislike</span>
+                </Button>
+              </div>
+            </div>
+            <div className="grid gap-4 p-4 rounded-lg bg-muted">
+              <div className="flex items-center gap-4">
+                <Avatar className="w-10 h-10 border">
+                  <AvatarImage src="/placeholder-user.jpg" />
+                  <AvatarFallback>MJ</AvatarFallback>
+                </Avatar>
+                <div className="grid gap-1">
+                  <div className="flex items-center gap-2">
+                    <div className="font-medium">Michael Johnson</div>
+                    <div className="flex items-center gap-0.5"></div>
+                  </div>
+                  <div className="text-sm text-muted-foreground">
+                    3 weeks ago
+                  </div>
+                </div>
+              </div>
+              <div className="text-muted-foreground">
+                I had a lot of fun with this game, but there were a few issues
+                that kept it from being a 5-star experience for me. The controls
+                felt a bit clunky at times, and I encountered a few bugs that
+                were frustrating. Overall, it's a solid adventure game that I'd
+                recommend with some caveats.
+              </div>
+              <div className="flex items-center gap-2">
+                <Button variant="ghost" size="icon">
+                  <span className="sr-only">Like</span>
+                </Button>
+                <Button variant="ghost" size="icon">
+                  <span className="sr-only">Dislike</span>
+                </Button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="grid gap-4">
+          <h2 className="text-2xl font-bold">Write a Review</h2>
+          <form className="grid gap-4">
+            <div className="grid gap-2">
+              <Label htmlFor="rating">Rating</Label>
+              <Select id="rating" defaultValue="3">
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a rating" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="1">1 star</SelectItem>
+                  <SelectItem value="2">2 stars</SelectItem>
+                  <SelectItem value="3">3 stars</SelectItem>
+                  <SelectItem value="4">4 stars</SelectItem>
+                  <SelectItem value="5">5 stars</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="grid gap-2">
+              <Label htmlFor="review">Review</Label>
+              <Textarea
+                id="review"
+                placeholder="Share your thoughts on the game..."
+              />
+            </div>
+            <Button type="submit">Submit Review</Button>
+          </form>
+        </div>
       </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:w-full lg:max-w-5xl lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Docs{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Learn{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Templates{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className="mb-3 text-2xl font-semibold">
-            Deploy{" "}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-balance text-sm opacity-50">
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    </div>
   );
 }
