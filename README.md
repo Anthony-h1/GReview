@@ -35,7 +35,9 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
+
 **Quick Fix**
+
 Any dependencies error (import errors) after cloning the file from github.
 You need to initialize shadcn, run these 2 commands in terminal :
 
