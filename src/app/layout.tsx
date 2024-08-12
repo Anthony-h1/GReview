@@ -19,9 +19,7 @@ export default async function RootLayout({
           <SignedOut>
             <SignInButton />
           </SignedOut>
-          <SignedIn>
-            <UserButton />
-          </SignedIn>
+          <SignedIn>{/* <UserButton /> */}</SignedIn>
           {children}
         </body>
       </html>

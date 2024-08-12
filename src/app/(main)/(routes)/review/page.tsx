@@ -1,8 +1,11 @@
 /**
  * v0 by Vercel.
- * @see https://v0.dev/t/E1UAHTek8A7
+ * @see https://v0.dev/t/TCopU5kXuXR
  * Documentation: https://v0.dev/docs#integrating-generated-code-into-your-nextjs-app
  */
+'use client';
+
+import { useState, useEffect } from 'react';
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { Label } from '@/components/ui/label';
@@ -14,8 +17,38 @@ import {
   SelectItem,
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
+import { createClient } from '@/utils/supabase/client';
 
 export default function Component() {
+  const [reviews, setReviews] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const supabase = createClient();
+        const { data, error } = await supabase.from('reviews') // Replace with your actual table name
+          .select(`
+            id,
+            content,
+            rating,
+            createdat,
+            likes,
+            dislikes,
+            user:users (name, initials, avatar_url)
+          `);
+
+        if (error) {
+          throw new Error(error.message);
+        }
+
+        setReviews(data);
+      } catch (error) {
+        console.error('Error fetching reviews:', error);
+      }
+    };
+
+    fetchReviews();
+  }, []);
   return (
     <div className="w-full max-w-6xl mx-auto py-12 px-4 md:px-6">
       <div className="flex flex-col md:flex-row items-center gap-8 mb-12">
@@ -50,124 +83,51 @@ export default function Component() {
         <div className="grid gap-4">
           <h2 className="text-2xl font-bold">Reviews</h2>
           <div className="grid gap-6">
-            <div className="grid gap-4 p-4 rounded-lg bg-muted">
-              <div className="flex items-center gap-4">
-                <Avatar className="w-10 h-10 border">
-                  <AvatarImage src="/placeholder-user.jpg" alt="@shadcn" />
-                  <AvatarFallback>JD</AvatarFallback>
-                </Avatar>
-                <div className="grid gap-1">
-                  <div className="flex items-center gap-2">
-                    <div className="font-medium">John Doe</div>
-                    <div className="flex items-center gap-0.5">
-                      <StarIcon className="w-5 h-5 fill-primary" />
-                      <StarIcon className="w-5 h-5 fill-primary" />
-                      <StarIcon className="w-5 h-5 fill-primary" />
-                      <StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
-                      <StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
+            {reviews.map((review) => (
+              <div
+                key={review.id}
+                className="grid gap-4 p-4 rounded-lg bg-muted"
+              >
+                <div className="flex items-center gap-4">
+                  <Avatar className="w-10 h-10 border">
+                    <AvatarImage
+                      src={review.user.avatar_url}
+                      alt={review.user.name}
+                    />
+                    <AvatarFallback>{review.user.initials}</AvatarFallback>
+                  </Avatar>
+                  <div className="grid gap-1">
+                    <div className="flex items-center gap-2">
+                      <div className="font-medium">{review.user.name}</div>
+                      <div className="flex items-center gap-0.5">
+                        {[...Array(review.rating)].map((_, i) => (
+                          <StarIcon className="w-5 h-5 fill-primary" />
+                        ))}
+                        {[...Array(5 - review.rating)].map((_, i) => (
+                          <StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
+                        ))}
+                      </div>
+                    </div>
+                    <div className="text-sm text-muted-foreground">
+                      {review.createdAt}
                     </div>
                   </div>
-                  <div className="text-sm text-muted-foreground">
-                    2 days ago
-                  </div>
+                </div>
+                <div className="text-muted-foreground">{review.content}</div>
+                <div className="flex items-center gap-2">
+                  <Button variant="ghost" size="icon">
+                    <ThumbsUpIcon className="w-5 h-5 fill-primary" />
+                    <span className="sr-only">Like</span>
+                  </Button>
+                  <div className="text-muted-foreground">{review.likes}</div>
+                  <Button variant="ghost" size="icon">
+                    <ThumbsDownIcon className="w-5 h-5 fill-muted-foreground" />
+                    <span className="sr-only">Dislike</span>
+                  </Button>
+                  <div className="text-muted-foreground">{review.dislikes}</div>
                 </div>
               </div>
-              <div className="text-muted-foreground">
-                This game is an absolute masterpiece! The visuals are stunning,
-                the gameplay is smooth and engaging, and the story is truly
-                captivating. I highly recommend it to anyone who loves adventure
-                games.
-              </div>
-              <div className="flex items-center gap-2">
-                <Button variant="ghost" size="icon">
-                  <ThumbsUpIcon className="w-5 h-5 fill-primary" />
-                  <span className="sr-only">Like</span>
-                </Button>
-                <Button variant="ghost" size="icon">
-                  <ThumbsDownIcon className="w-5 h-5 fill-muted-foreground" />
-                  <span className="sr-only">Dislike</span>
-                </Button>
-              </div>
-            </div>
-            <div className="grid gap-4 p-4 rounded-lg bg-muted">
-              <div className="flex items-center gap-4">
-                <Avatar className="w-10 h-10 border">
-                  <AvatarImage src="/placeholder-user.jpg" alt="@shadcn" />
-                  <AvatarFallback>SA</AvatarFallback>
-                </Avatar>
-                <div className="grid gap-1">
-                  <div className="flex items-center gap-2">
-                    <div className="font-medium">Sarah Anderson</div>
-                    <div className="flex items-center gap-0.5">
-                      <StarIcon className="w-5 h-5 fill-primary" />
-                      <StarIcon className="w-5 h-5 fill-primary" />
-                      <StarIcon className="w-5 h-5 fill-primary" />
-                      <StarIcon className="w-5 h-5 fill-primary" />
-                      <StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
-                    </div>
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    1 week ago
-                  </div>
-                </div>
-              </div>
-              <div className="text-muted-foreground">
-                I absolutely loved this game! The story was engaging, the
-                characters were well-developed, and the gameplay was incredibly
-                fun and challenging. I couldn't put it down and can't wait to
-                play it again.
-              </div>
-              <div className="flex items-center gap-2">
-                <Button variant="ghost" size="icon">
-                  <ThumbsUpIcon className="w-5 h-5 fill-primary" />
-                  <span className="sr-only">Like</span>
-                </Button>
-                <Button variant="ghost" size="icon">
-                  <ThumbsDownIcon className="w-5 h-5 fill-muted-foreground" />
-                  <span className="sr-only">Dislike</span>
-                </Button>
-              </div>
-            </div>
-            <div className="grid gap-4 p-4 rounded-lg bg-muted">
-              <div className="flex items-center gap-4">
-                <Avatar className="w-10 h-10 border">
-                  <AvatarImage src="/placeholder-user.jpg" alt="@shadcn" />
-                  <AvatarFallback>MJ</AvatarFallback>
-                </Avatar>
-                <div className="grid gap-1">
-                  <div className="flex items-center gap-2">
-                    <div className="font-medium">Michael Johnson</div>
-                    <div className="flex items-center gap-0.5">
-                      <StarIcon className="w-5 h-5 fill-primary" />
-                      <StarIcon className="w-5 h-5 fill-primary" />
-                      <StarIcon className="w-5 h-5 fill-primary" />
-                      <StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
-                      <StarIcon className="w-5 h-5 fill-muted stroke-muted-foreground" />
-                    </div>
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    3 weeks ago
-                  </div>
-                </div>
-              </div>
-              <div className="text-muted-foreground">
-                I had a lot of fun with this game, but there were a few issues
-                that kept it from being a 5-star experience for me. The controls
-                felt a bit clunky at times, and I encountered a few bugs that
-                were frustrating. Overall, it's a solid adventure game that I'd
-                recommend with some caveats.
-              </div>
-              <div className="flex items-center gap-2">
-                <Button variant="ghost" size="icon">
-                  <ThumbsUpIcon className="w-5 h-5 fill-primary" />
-                  <span className="sr-only">Like</span>
-                </Button>
-                <Button variant="ghost" size="icon">
-                  <ThumbsDownIcon className="w-5 h-5 fill-muted-foreground" />
-                  <span className="sr-only">Dislike</span>
-                </Button>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
         <div className="grid gap-4">
