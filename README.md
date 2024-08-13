@@ -36,10 +36,16 @@ The easiest way to deploy your Next.js app is to use the [Vercel Platform](https
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
 
-**Quick Fix**
+## Library Installation: 
 
 Any dependencies error (import errors) after cloning the file from github.
-You need to initialize shadcn, run these 2 commands in terminal :
+You need to initialize these libraries, run these commands in terminal :
 
 **npm install -g shadcn-ui
 shadcn-ui init**
+
+**npm install @prisma
+npx prisma init**
+
+**npm install @upstash/redis**
+
