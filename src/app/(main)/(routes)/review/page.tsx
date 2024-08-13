@@ -53,7 +53,7 @@ export default function Component() {
     <div className="w-full max-w-6xl mx-auto py-12 px-4 md:px-6">
       <div className="flex flex-col md:flex-row items-center gap-8 mb-12">
         <img
-          src="/placeholder.svg"
+          src="#"
           alt="Game Cover"
           width="600"
           height="400"

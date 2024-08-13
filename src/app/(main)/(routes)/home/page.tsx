@@ -24,15 +24,11 @@ export default function Component() {
       <main className="flex-1 p-4 bg-gray-100">
         <div className="grid gap-4 md:grid-cols-3 lg:grid-cols-4">
           <Card className="overflow-hidden">
-            <img
-              src="/placeholder.svg"
-              alt="Valorant"
-              className="w-full h-auto"
-            />
+            <img src="#" alt="Valorant" className="w-full h-auto" />
           </Card>
           <Card className="overflow-hidden">
             <img
-              src="/placeholder.svg"
+              src="#"
               alt="Game 2"
               className="w-full h-auto"
               width="200"
@@ -42,7 +38,7 @@ export default function Component() {
           </Card>
           <Card className="overflow-hidden">
             <img
-              src="/placeholder.svg"
+              src="#"
               alt="Game 3"
               className="w-full h-auto"
               width="200"
@@ -52,7 +48,7 @@ export default function Component() {
           </Card>
           <Card className="overflow-hidden">
             <img
-              src="/placeholder.svg"
+              src="#"
               alt="Game 4"
               className="w-full h-auto"
               width="200"
@@ -62,7 +58,7 @@ export default function Component() {
           </Card>
           <Card className="overflow-hidden">
             <img
-              src="/placeholder.svg"
+              src="#"
               alt="Game 5"
               className="w-full h-auto"
               width="200"
@@ -72,7 +68,7 @@ export default function Component() {
           </Card>
           <Card className="overflow-hidden">
             <img
-              src="/placeholder.svg"
+              src="#"
               alt="Game 6"
               className="w-full h-auto"
               width="200"

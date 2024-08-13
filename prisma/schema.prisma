@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+// Update the datasource to use PostgreSQL with Supabase
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL") // Connection URL for general queries with connection pooling
+  directUrl = env("DIRECT_URL")   // Direct connection URL for migrations
+}
+
+// Define your models here
+model User {
+  id              BigInt   @id @default(autoincrement()) @db.BigInt
+  email           String   @unique
+  gmailAccessToken String?  @unique   // Make this optional
+  firstName       String?
+  lastName        String?
+  imageUrl        String?
+  clerkUserId     String   @unique
+  encryptionSetup Boolean  @default(false)
+  createdAt       DateTime @default(now()) @db.Timestamptz
+  updatedAt       DateTime @updatedAt @db.Timestamptz
+  deletedAt       DateTime? @db.Timestamptz
+  userEncryption  UserEncryption?
+}
+
+
+model UserEncryption {
+  id        BigInt   @id @default(autoincrement()) @db.BigInt
+  userId    String   @unique
+  user      User     @relation(fields: [userId], references: [clerkUserId])
+  salt      String
+  createdAt DateTime @default(now()) @db.Timestamptz
+  updatedAt DateTime @updatedAt @db.Timestamptz
+}
