@@ -6,6 +6,13 @@ import '@/app/globals.css';
 import { ReactNode } from 'react';
 import Navbar from '@/components/ui/navbar';
 
+//wagmi related imports
+import { headers } from 'next/headers';
+import { cookieToInitialState } from 'wagmi';
+import { config } from '@/utils/wagmi/web3';
+import { Connect } from '@/components/ui/Connect';
+import Web3ModalProvider from '@/context/web3';
+
 const fontHeading = Inter({
   subsets: ['latin'],
   display: 'swap',
@@ -19,13 +26,17 @@ const fontBody = Inter({
 });
 
 export default function Layout({ children }: { children: ReactNode }) {
+  const initialState = cookieToInitialState(config, headers().get('cookie'));
   return (
     <html lang="en">
       <body
         className={cn('antialiased', fontHeading.variable, fontBody.variable)}
       >
         <Navbar />
-        {children}
+        <Web3ModalProvider initialState={initialState}>
+          {children}
+        </Web3ModalProvider>
+        {/* {children} */}
       </body>
     </html>
   );

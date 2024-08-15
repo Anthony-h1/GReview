@@ -25,7 +25,6 @@ import {
 } from '@/components/ui/card';
 
 export default function Component() {
-  // const [gameReviews, setGameReviews] = useState([]);
   const [tokensLeft, setTokensLeft] = useState(100);
   // useEffect(() => {
   //   const fetchGameReviews = async () => {
@@ -41,76 +40,6 @@ export default function Component() {
   // }, []);
   return (
     <div className="flex flex-col min-h-screen">
-      {/* <header className="flex items-center justify-between p-4 border-b bg-white">
-        <div className="flex items-center space-x-4">
-          <Link
-            href="#"
-            className="inline-flex items-center gap-2 font-medium text-primary transition-colors hover:text-primary/80"
-            prefetch={false}
-          >
-            <Package2Icon className="h-5 w-5" />
-            <span>Homepage</span>
-          </Link>
-          <Link
-            href="#"
-            className="inline-flex items-center gap-2 font-medium text-primary transition-colors hover:text-primary/80"
-            prefetch={false}
-          >
-            <PackageIcon className="h-5 w-5" />
-            <span>Inventory</span>
-          </Link>
-          <Link
-            href="#"
-            className="inline-flex items-center gap-2 font-medium text-muted-foreground transition-colors hover:text-primary"
-            prefetch={false}
-          >
-            <StarIcon className="h-5 w-5" />
-            <span>Game Reviews</span>
-          </Link>
-        </div>
-        <div className="flex items-center space-x-4">
-          <div className="bg-primary text-primary-foreground px-4 py-2 rounded-md flex items-center justify-between">
-            {' '}
-            // Initialize tokens left to 100
-            <span>Tokens Left: {tokensLeft}</span>
-            <Button variant="outline" className="flex items-center space-x-2">
-              <WalletIcon className="h-5 w-5" />
-              <span>Connect Wallet</span>
-            </Button>
-          </div>
-          <Button variant="outline" className="flex items-center space-x-2">
-            <WalletIcon className="h-5 w-5" />
-            <span>Connect Wallet</span>
-          </Button>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="icon" className="rounded-full">
-                <Avatar>
-                  <AvatarImage src="/placeholder-user.jpg" alt="User Avatar" />
-                  <AvatarFallback>U</AvatarFallback>
-                </Avatar>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56">
-              <DropdownMenuLabel>My Account</DropdownMenuLabel>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <UserIcon className="mr-2 h-4 w-4" />
-                Profile
-              </DropdownMenuItem>
-              <DropdownMenuItem>
-                <SettingsIcon className="mr-2 h-4 w-4" />
-                Settings
-              </DropdownMenuItem>
-              <DropdownMenuSeparator />
-              <DropdownMenuItem>
-                <LogOutIcon className="mr-2 h-4 w-4" />
-                Logout
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      </header> */}
       <main className="flex-1 p-4 bg-gray-100">
         <div className="container mx-auto">
           <h1 className="text-2xl font-bold mb-4">Inventory</h1>
@@ -141,7 +70,7 @@ export default function Component() {
                     className="disabled:opacity-50 disabled:cursor-not-allowed"
                     disabled={tokensLeft <= 0}
                   >
-                    Mine Token
+                    Claim Token
                   </Button>
                 </div>
               </CardContent>

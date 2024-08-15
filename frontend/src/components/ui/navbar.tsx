@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { Button } from './button';
 import { UserButton } from '@clerk/nextjs';
+import { Connect } from '@/components/ui/Connect';
 
 const Navbar = () => {
   return (
@@ -16,7 +17,7 @@ const Navbar = () => {
           <span>Homepage</span>
         </Link>
         <Link
-          href="#"
+          href="/inventory"
           className="inline-flex items-center gap-2 font-medium text-muted-foreground transition-colors hover:text-primary"
           prefetch={false}
         >
@@ -25,15 +26,8 @@ const Navbar = () => {
         </Link>
       </div>
       <div className="flex items-center space-x-4">
-        <Button variant="outline" className="flex items-center space-x-2">
-          <WalletIcon className="h-5 w-5" />
-          <span>Connect Wallet</span>
-        </Button>
+        <Connect />
         <Button variant="ghost" size="icon" className="rounded-full">
-          {/* <Avatar>
-                  <AvatarImage src="/placeholder-user.jpg" alt="User Avatar" />
-                  <AvatarFallback>U</AvatarFallback>
-                </Avatar> */}
           <UserButton />
         </Button>
       </div>
