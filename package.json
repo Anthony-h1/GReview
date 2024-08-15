@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "deploy": "npx hardhat ignition deploy ./ignition/modules/Deployment.ts --reset --network localhost",
+    "deploy": "npx hardhat ignition deploy ./ignition/modules/Lock.ts --reset --network localhost",
     "test": "npx hardhat test",
     "compile": "npx hardhat compile"
   },
