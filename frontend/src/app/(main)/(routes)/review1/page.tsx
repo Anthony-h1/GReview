@@ -13,12 +13,11 @@ import {
 } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { createClient } from '@/utils/supabase/client';
-import { useUser } from '@supabase/auth-helpers-react';
-import { currentUser } from '@clerk/nextjs/server';
+import { useUser } from '@clerk/clerk-react';
 
 export default function Component() {
-  const user = useUser();
-  const userId = user?.id ?? 1;
+  const { user } = useUser();
+  const userId = user?.id;
 
   const [reviews, setReviews] = useState<any[]>([]);
   const [rating, setRating] = useState('3');
@@ -81,7 +80,6 @@ export default function Component() {
       }
 
       if (data) {
-        //console.log('Review submitted successfully:', data);
         setReviews((prevReviews) => [...prevReviews, data]);
       }
 
@@ -89,21 +87,79 @@ export default function Component() {
       setReviewContent('');
     } catch (error) {
       console.error('Error submitting review:', error);
-      // if (error instanceof Error) {
-      //   console.error('Error submitting review:', error.message);
-      //  }
-      //  else {
-      // //   console.error('Unexpected error:', error);
-      // // }
     }
   };
 
+  const handleLikeDislike = async (reviewId: number, isLike: boolean) => {
+    if (!userId) {
+      console.error('User is not authenticated');
+      return;
+    }
+
+    try {
+      const supabase = createClient();
+
+      // Check if the user has already liked or disliked this review
+      const { data: existingLike, error: existingError } = await supabase
+        .from('user_likes')
+        .select('*')
+        .eq('user_id', userId)
+        .eq('review_id', reviewId)
+        .single();
+
+      if (existingError && existingError.code !== 'PGRST116') {
+        throw new Error(existingError.message);
+      }
+
+      if (existingLike) {
+        console.error('User has already liked/disliked this review');
+        return;
+      }
+
+      // Insert the like/dislike
+      const { data, error } = await supabase
+        .from('user_likes')
+        .insert([
+          {
+            user_id: userId,
+            review_id: reviewId,
+            is_like: isLike,
+          },
+        ])
+        .single();
+
+      if (error) {
+        throw new Error(error.message);
+      }
+
+      // Update the review's likes or dislikes count
+      const column = isLike ? 'likes' : 'dislikes';
+      const { data: updatedReview, error: updateError } = await supabase.rpc(
+        'increment_column',
+        { table_name: 'reviews', column_name: column, row_id: reviewId }
+      );
+
+      if (updateError) {
+        throw new Error(updateError.message);
+      }
+
+      setReviews((prevReviews) =>
+        prevReviews.map((review) =>
+          review.id === reviewId
+            ? { ...review, [column]: review[column] + 1 }
+            : review
+        )
+      );
+    } catch (error) {
+      console.error('Error liking/disliking review:', error);
+    }
+  };
   return (
     <div className="w-full max-w-6xl mx-auto py-12 px-4 md:px-6">
       {/* Render Content */}
       <div className="flex flex-col md:flex-row items-center gap-8 mb-12">
         <img
-          src="/placeholder.svg"
+          src="https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/1172470/header.jpg?t=1723202302"
           alt="Game Cover"
           width="600"
           height="400"
@@ -111,7 +167,7 @@ export default function Component() {
           style={{ aspectRatio: '600/400', objectFit: 'cover' }}
         />
         <div className="grid gap-4">
-          <h1 className="text-4xl font-bold">Legendary Adventure</h1>
+          <h1 className="text-4xl font-bold">Apex Legend</h1>
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-0.5">
               <StarIcon className="w-5 h-5 fill-primary" />
@@ -170,12 +226,20 @@ export default function Component() {
                 </div>
                 <div className="text-muted-foreground">{review.content}</div>
                 <div className="flex items-center gap-2">
-                  <Button variant="ghost" size="icon">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => handleLikeDislike(review.id, true)}
+                  >
                     <ThumbsUpIcon className="w-5 h-5 fill-primary" />
                     <span className="sr-only">Like</span>
                   </Button>
                   <div className="text-muted-foreground">{review.likes}</div>
-                  <Button variant="ghost" size="icon">
+                  <Button
+                    variant="ghost"
+                    size="icon"
+                    onClick={() => handleLikeDislike(review.id, false)}
+                  >
                     <ThumbsDownIcon className="w-5 h-5 fill-muted-foreground" />
                     <span className="sr-only">Dislike</span>
                   </Button>
